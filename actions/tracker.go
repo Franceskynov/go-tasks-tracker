@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"github.com/Franceskynov/go-tasks-tracker/utils"
 	"strconv"
-
-	"github.com/urfave/cli/v2"
 )
 
 func Welcome() error {
@@ -43,10 +41,10 @@ func WriteTasks(fileName string, tasks utils.Tasks, id int, name string) error {
 /*
 	Add a new task
 */
-func AddNewTask(ctx *cli.Context, fileName string) error {
+func AddNewTask(ctx []string, fileName string) error {
 	
 	id := 1
-	taskName := ctx.Args().Get(0)
+	taskName := ctx[2]
 	tasks, err := utils.JSONReader(fileName)
 	if taskName == "" {
 		return errors.New("please write a valid task")
@@ -73,11 +71,16 @@ func AddNewTask(ctx *cli.Context, fileName string) error {
 /*
 	Update an existing task
 */
-func UpdateExistingTask(ctx *cli.Context, fileName string, mode string) error {
+func UpdateExistingTask(ctx []string, fileName string, mode string) error {
 
 	tasks, err := utils.JSONReader(fileName)
-	taskID := ctx.Args().Get(0)
-	taskName := ctx.Args().Get(1)
+	taskID := ctx[2]
+	taskName := ""
+
+	if len(ctx) == 4 {
+		taskName = ctx[3]
+	}
+	
 	if taskID == "" || (mode == "updateName" && taskName == "")  {
 		return errors.New("please write a valid arguments to update the task")
 	}
@@ -121,7 +124,7 @@ func UpdateExistingTask(ctx *cli.Context, fileName string, mode string) error {
 /*
 List all existing tasks
 */
-func ListAllTasks(ctx *cli.Context, fileName string, mode string) error {
+func ListAllTasks(fileName string, mode string) error {
 
 	decoration := "-----------------------------------------------" 
 	fmt.Println(decoration)
@@ -160,9 +163,9 @@ func ListAllTasks(ctx *cli.Context, fileName string, mode string) error {
 /*
 Delete a existing task
 */
-func DeleteATask(ctx *cli.Context, fileName string) error {
+func DeleteATask(ctx []string, fileName string) error {
 	
-	taskID := ctx.Args().Get(0)
+	taskID := ctx[2]
 	tasks, err := utils.JSONReader(fileName)
 
 	if taskID == ""  {

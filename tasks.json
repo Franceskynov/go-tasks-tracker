@@ -1,1 +1,1 @@
-{"tasks":[{"id":999,"name":"paint the house","status":"ToDo"},{"id":1000,"name":"do the homework","status":"In Progress"},{"id":1001,"name":"do the laundry","status":"todo"}]}
+{"tasks":[{"id":999,"name":"paint the house","status":"ToDo"},{"id":1000,"name":"do the homework","status":"Done"},{"id":1001,"name":"do the laundry ...","status":"Done"},{"id":1002,"name":"read a book","status":"ToDo"}]}
